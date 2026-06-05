@@ -31,34 +31,14 @@
   <div class="wrap">
     <p class="org-label">Chorus America</p>
     <p class="campaign-name" id="camp-name">Loading campaign...</p>
-
     <div class="stats-grid">
-      <div class="stat-card">
-        <p class="stat-label">Raised</p>
-        <p class="stat-value highlight" id="raised">—</p>
-      </div>
-      <div class="stat-card">
-        <p class="stat-label">Goal</p>
-        <p class="stat-value" id="goal">—</p>
-      </div>
-      <div class="stat-card">
-        <p class="stat-label">Donations</p>
-        <p class="stat-value" id="count">—</p>
-      </div>
+      <div class="stat-card"><p class="stat-label">Raised</p><p class="stat-value highlight" id="raised">—</p></div>
+      <div class="stat-card"><p class="stat-label">Goal</p><p class="stat-value" id="goal">—</p></div>
+      <div class="stat-card"><p class="stat-label">Donations</p><p class="stat-value" id="count">—</p></div>
     </div>
-
-    <div class="bar-wrap">
-      <div class="bar-fill" id="bar" style="width:0%">
-        <span class="bar-pct" id="bar-pct"></span>
-      </div>
-    </div>
-    <div class="bar-labels">
-      <span>$0</span>
-      <span id="goal-label">—</span>
-    </div>
-
+    <div class="bar-wrap"><div class="bar-fill" id="bar" style="width:0%"><span class="bar-pct" id="bar-pct"></span></div></div>
+    <div class="bar-labels"><span>$0</span><span id="goal-label">—</span></div>
     <div id="error-box" style="display:none"></div>
-
     <div class="footer">
       <span><span class="pulse"></span><span id="status">Connecting...</span></span>
       <a class="donate-btn" href="https://chorusamerica.app.neoncrm.com/np/clients/chorusamerica/donation.jsp?campaign=359" target="_blank">Donate now</a>
@@ -70,6 +50,8 @@
     var API_KEY = '1f2ce8be38aa05ce83db78d374416892';
     var CAMPAIGN_ID = 359;
     var REFRESH_SECONDS = 15;
+    var PROXY = 'https://corsproxy.io/?';
+    var BASE = 'https://api.neoncrm.com/neonws/services/api/';
     var sessionId = null;
     var secondsLeft = REFRESH_SECONDS;
 
@@ -97,7 +79,7 @@
 
     function fetchData(){
       if(!sessionId){ login(); return; }
-      var url = 'https://api.neoncrm.com/neonws/services/api/donation/retrieveCampaignSummary?userSessionId=' + sessionId + '&campaignId=' + CAMPAIGN_ID + '&output=json';
+      var url = PROXY + encodeURIComponent(BASE + 'donation/retrieveCampaignSummary?userSessionId=' + sessionId + '&campaignId=' + CAMPAIGN_ID + '&output=json');
       fetch(url)
         .then(function(r){ return r.json(); })
         .then(function(d){
@@ -115,7 +97,7 @@
 
     function login(){
       setStatus('Connecting...');
-      var url = 'https://api.neoncrm.com/neonws/services/api/common/login?login.apiKey=' + API_KEY + '&login.orgid=' + ORG + '&output=json';
+      var url = PROXY + encodeURIComponent(BASE + 'common/login?login.apiKey=' + API_KEY + '&login.orgid=' + ORG + '&output=json');
       fetch(url)
         .then(function(r){ return r.json(); })
         .then(function(d){
@@ -124,7 +106,7 @@
             sessionId = login.userSessionId;
             fetchData();
           } else {
-            setError('Login failed. Check API key.');
+            setError('Login failed: ' + JSON.stringify(d));
           }
         })
         .catch(function(e){ setError('Login error: ' + e.message); });
