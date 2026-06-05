@@ -3,57 +3,154 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chorus America — Campaign Goal</title>
+  <title>Chorus America — Homecoming 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #fff; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 2rem; }
-    .wrap { width: 100%; max-width: 600px; }
-    .org-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 0.4rem; }
-    .campaign-name { font-size: 28px; font-weight: 600; color: #111; margin-bottom: 1.5rem; }
-    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.5rem; }
-    .stat-card { background: #f5f5f3; border-radius: 10px; padding: 1rem; }
-    .stat-label { font-size: 12px; color: #888; margin-bottom: 4px; }
-    .stat-value { font-size: 24px; font-weight: 600; color: #111; }
-    .stat-value.highlight { color: #0F6E56; }
-    .bar-wrap { background: #f5f5f3; border-radius: 999px; height: 24px; overflow: hidden; margin-bottom: 0.5rem; }
-    .bar-fill { height: 100%; border-radius: 999px; background: #1D9E75; transition: width 1s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; min-width: 2px; }
-    .bar-pct { font-size: 12px; font-weight: 600; color: #fff; }
-    .bar-labels { display: flex; justify-content: space-between; font-size: 13px; color: #888; margin-bottom: 1.5rem; }
-    .donors-section { margin-bottom: 1.5rem; }
-    .donors-title { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-bottom: 0.75rem; }
-    .donors-list { display: flex; flex-direction: column; gap: 8px; }
-    .donor-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: #f5f5f3; border-radius: 8px; animation: fadeIn 0.4s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
-    .donor-name { font-size: 15px; font-weight: 500; color: #111; }
-    .donor-amount { font-size: 14px; font-weight: 600; color: #0F6E56; }
-    .no-donors { font-size: 14px; color: #aaa; padding: 0.5rem 0; }
-    .footer { display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: #888; border-top: 1px solid #eee; padding-top: 1rem; }
-    .pulse { width: 8px; height: 8px; border-radius: 50%; background: #1D9E75; display: inline-block; margin-right: 6px; animation: pulse 2s ease-in-out infinite; }
-    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #1d457b;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 24px;
+      padding: 3rem 3.5rem;
+      width: 100%;
+      max-width: 780px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.3);
+    }
+
+    .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 2.5rem; }
+
+    .header-left {}
+
+    .org-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #1d457b;
+      margin-bottom: 0.4rem;
+    }
+
+    .campaign-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 44px;
+      color: #111;
+      line-height: 1.1;
+    }
+
+    .donate-link {
+      text-align: right;
+      flex-shrink: 0;
+      margin-left: 2rem;
+      margin-top: 0.25rem;
+    }
+
+    .donate-link-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 4px;
+    }
+
+    .donate-link-url {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1d457b;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .donate-link-url:hover { text-decoration: underline; }
+
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 2rem; }
+
+    .stat-card {
+      background: #f0f4fa;
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .stat-label { font-size: 13px; font-weight: 500; color: #1d457b; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .stat-value { font-size: 36px; font-weight: 700; color: #111; line-height: 1; }
+    .stat-value.highlight { color: #1d457b; }
+
+    .bar-wrap { background: #e8eef7; border-radius: 999px; height: 28px; overflow: hidden; margin-bottom: 0.6rem; }
+    .bar-fill { height: 100%; border-radius: 999px; background: #1d457b; transition: width 1s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 12px; min-width: 4px; }
+    .bar-pct { font-size: 13px; font-weight: 700; color: #fff; }
+    .bar-labels { display: flex; justify-content: space-between; font-size: 13px; color: #888; margin-bottom: 2rem; }
+
+    .donors-section { margin-bottom: 2rem; }
+    .donors-title {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #1d457b; margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #e8eef7;
+    }
+    .donors-list { display: flex; flex-direction: column; gap: 10px; }
+    .donor-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 18px; background: #f0f4fa; border-radius: 10px;
+      animation: fadeIn 0.5s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+    .donor-name { font-size: 17px; font-weight: 500; color: #111; }
+    .donor-amount { font-size: 16px; font-weight: 700; color: #1d457b; }
+    .no-donors { font-size: 15px; color: #aaa; padding: 0.5rem 0; }
+
+    .footer {
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid #e8eef7; padding-top: 1.25rem;
+      font-size: 13px; color: #888;
+    }
+    .pulse { width: 9px; height: 9px; border-radius: 50%; background: #1d457b; display: inline-block; margin-right: 8px; animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(0.65)} }
+
     .error-msg { color: #A32D2D; font-size: 13px; padding: 0.75rem 1rem; background: #FCEBEB; border-radius: 8px; margin-bottom: 1rem; }
-    .donate-btn { background: #1D9E75; color: #fff; border: none; border-radius: 8px; padding: 10px 20px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; }
-    .donate-btn:hover { background: #0F6E56; }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <p class="org-label">Chorus America</p>
-    <p class="campaign-name" id="camp-name">Loading campaign...</p>
+  <div class="card">
+    <div class="header">
+      <div class="header-left">
+        <p class="org-label">Chorus America</p>
+        <h1 class="campaign-name" id="camp-name">Homecoming 2026</h1>
+      </div>
+      <div class="donate-link">
+        <p class="donate-link-label">Give now</p>
+        <a class="donate-link-url" href="https://bit.ly/hocogift" target="_blank">bit.ly/hocogift</a>
+      </div>
+    </div>
+
     <div class="stats-grid">
       <div class="stat-card"><p class="stat-label">Raised</p><p class="stat-value highlight" id="raised">—</p></div>
       <div class="stat-card"><p class="stat-label">Goal</p><p class="stat-value" id="goal">—</p></div>
       <div class="stat-card"><p class="stat-label">Donations</p><p class="stat-value" id="count">—</p></div>
     </div>
+
     <div class="bar-wrap"><div class="bar-fill" id="bar" style="width:0%"><span class="bar-pct" id="bar-pct"></span></div></div>
     <div class="bar-labels"><span>$0</span><span id="goal-label">—</span></div>
+
     <div class="donors-section">
       <p class="donors-title">Our Donors</p>
       <div class="donors-list" id="donors-list"><p class="no-donors">Loading donors...</p></div>
     </div>
+
     <div id="error-box" style="display:none"></div>
+
     <div class="footer">
       <span><span class="pulse"></span><span id="status">Connecting...</span></span>
-      <a class="donate-btn" href="https://chorusamerica.app.neoncrm.com/np/clients/chorusamerica/donation.jsp?campaign=359" target="_blank">Donate now</a>
+      <span style="color:#1d457b; font-weight:600;">chorusamerica.org</span>
     </div>
   </div>
 
@@ -102,10 +199,7 @@
         if(!Array.isArray(nvp)) nvp = [nvp];
         var row = {};
         nvp.forEach(function(p){ row[p.name] = p.value; });
-        // Filter to only Homecoming 2026 donations
-        if(row['Full Name (F)'] && row['Campaign Name'] === CAMPAIGN_NAME){
-          donors.push(row);
-        }
+        if(row['Full Name (F)'] && row['Campaign Name'] === CAMPAIGN_NAME) donors.push(row);
       });
       if(donors.length === 0){ list.innerHTML = '<p class="no-donors">No donors yet — be the first!</p>'; return; }
       list.innerHTML = donors.map(function(d){
@@ -116,17 +210,13 @@
     }
 
     function fetchDonors(){
-      // Fetch recent donations (from campaign start date) and filter client-side
       var url = PROXY + encodeURIComponent(BASE + 'donation/listDonations?responseType=json&userSessionId=' + sessionId +
         '&outputfields.idnamepair.id=&outputfields.idnamepair.name=Full%20Name%20(F)' +
         '&outputfields.idnamepair.id=&outputfields.idnamepair.name=Donation%20Amount' +
         '&outputfields.idnamepair.id=&outputfields.idnamepair.name=Campaign%20Name' +
         '&searches.search.key=Donation%20Date&searches.search.searchOperator=GREATER_AND_EQUAL&searches.search.value=2026-06-01' +
         '&page.pageSize=100&page.currentPage=1');
-      fetch(url)
-        .then(function(r){ return r.json(); })
-        .then(function(d){ updateDonors(d); })
-        .catch(function(e){ console.log('Donor fetch error:', e); });
+      fetch(url).then(function(r){ return r.json(); }).then(function(d){ updateDonors(d); }).catch(function(){});
     }
 
     function fetchData(){
@@ -136,14 +226,8 @@
         .then(function(r){ return r.json(); })
         .then(function(d){
           var result = d.retrieveCampaignSummary && d.retrieveCampaignSummary.operationResult;
-          if(result === 'SUCCESS'){
-            updateMeter(d);
-            fetchDonors();
-            setStatus('Updated just now');
-          } else {
-            sessionId = null;
-            login();
-          }
+          if(result === 'SUCCESS'){ updateMeter(d); fetchDonors(); setStatus('Updated just now'); }
+          else { sessionId = null; login(); }
         })
         .catch(function(e){ setError('Fetch error: ' + e.message); });
     }
@@ -154,28 +238,19 @@
       fetch(url)
         .then(function(r){ return r.json(); })
         .then(function(d){
-          var login = d.loginResponse;
-          if(login && login.operationResult === 'SUCCESS'){
-            sessionId = login.userSessionId;
-            fetchData();
-          } else {
-            setError('Login failed: ' + JSON.stringify(d));
-          }
+          var l = d.loginResponse;
+          if(l && l.operationResult === 'SUCCESS'){ sessionId = l.userSessionId; fetchData(); }
+          else { setError('Login failed.'); }
         })
         .catch(function(e){ setError('Login error: ' + e.message); });
     }
 
     setInterval(function(){
       secondsLeft--;
-      if(secondsLeft <= 0){
-        secondsLeft = REFRESH_SECONDS;
-        setStatus('Refreshing...');
-        fetchData();
-      } else {
+      if(secondsLeft <= 0){ secondsLeft = REFRESH_SECONDS; setStatus('Refreshing...'); fetchData(); }
+      else {
         var s = $('status').textContent;
-        if(s !== 'Connecting...' && s !== 'Refreshing...'){
-          setStatus('Next update in ' + secondsLeft + 's');
-        }
+        if(s !== 'Connecting...' && s !== 'Refreshing...') setStatus('Next update in ' + secondsLeft + 's');
       }
     }, 1000);
 
