@@ -21,137 +21,114 @@
     .card {
       background: #fff;
       border-radius: 24px;
-      padding: 3rem 3.5rem;
+      overflow: hidden;
       width: 100%;
       max-width: 780px;
       box-shadow: 0 24px 80px rgba(0,0,0,0.3);
     }
 
-    .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 2.5rem; }
+    .hero-img {
+      width: 100%;
+      display: block;
+      max-height: 220px;
+      object-fit: cover;
+      object-position: center top;
+    }
 
-    .header-left {}
+    .card-body { padding: 2.5rem 3rem; }
+
+    .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 2rem; }
 
     .org-label {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #1d457b;
-      margin-bottom: 0.4rem;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #1d457b; margin-bottom: 0.4rem;
     }
 
     .campaign-name {
       font-family: 'Playfair Display', serif;
-      font-size: 44px;
-      color: #111;
-      line-height: 1.1;
+      font-size: 40px; color: #111; line-height: 1.1;
     }
 
-    .donate-link {
-      text-align: right;
-      flex-shrink: 0;
-      margin-left: 2rem;
-      margin-top: 0.25rem;
-    }
-
-    .donate-link-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #888;
-      margin-bottom: 4px;
-    }
-
-    .donate-link-url {
-      font-size: 22px;
-      font-weight: 700;
-      color: #1d457b;
-      text-decoration: none;
-      letter-spacing: -0.01em;
-    }
-
+    .donate-link { text-align: right; flex-shrink: 0; margin-left: 2rem; margin-top: 0.25rem; }
+    .donate-link-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 4px; }
+    .donate-link-url { font-size: 22px; font-weight: 700; color: #1d457b; text-decoration: none; }
     .donate-link-url:hover { text-decoration: underline; }
 
-    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 2rem; }
-
-    .stat-card {
-      background: #f0f4fa;
-      border-radius: 14px;
-      padding: 1.25rem 1.5rem;
-    }
-
-    .stat-label { font-size: 13px; font-weight: 500; color: #1d457b; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
-    .stat-value { font-size: 36px; font-weight: 700; color: #111; line-height: 1; }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 1.75rem; }
+    .stat-card { background: #f0f4fa; border-radius: 14px; padding: 1.1rem 1.4rem; }
+    .stat-label { font-size: 12px; font-weight: 600; color: #1d457b; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .stat-value { font-size: 34px; font-weight: 700; color: #111; line-height: 1; }
     .stat-value.highlight { color: #1d457b; }
 
-    .bar-wrap { background: #e8eef7; border-radius: 999px; height: 28px; overflow: hidden; margin-bottom: 0.6rem; }
+    .bar-wrap { background: #e8eef7; border-radius: 999px; height: 28px; overflow: hidden; margin-bottom: 0.5rem; }
     .bar-fill { height: 100%; border-radius: 999px; background: #1d457b; transition: width 1s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 12px; min-width: 4px; }
     .bar-pct { font-size: 13px; font-weight: 700; color: #fff; }
-    .bar-labels { display: flex; justify-content: space-between; font-size: 13px; color: #888; margin-bottom: 2rem; }
+    .bar-labels { display: flex; justify-content: space-between; font-size: 13px; color: #888; margin-bottom: 1.75rem; }
 
-    .donors-section { margin-bottom: 2rem; }
-    .donors-title {
-      font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
-      text-transform: uppercase; color: #1d457b; margin-bottom: 1rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid #e8eef7;
-    }
-    .donors-list { display: flex; flex-direction: column; gap: 10px; }
-    .donor-row {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 18px; background: #f0f4fa; border-radius: 10px;
-      animation: fadeIn 0.5s ease;
-    }
+    .donors-section { margin-bottom: 1.75rem; }
+    .donors-title { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #1d457b; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e8eef7; }
+    .donors-list { display: flex; flex-direction: column; gap: 8px; }
+    .donor-row { display: flex; align-items: center; justify-content: space-between; padding: 11px 16px; background: #f0f4fa; border-radius: 10px; animation: fadeIn 0.5s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
-    .donor-name { font-size: 17px; font-weight: 500; color: #111; }
-    .donor-amount { font-size: 16px; font-weight: 700; color: #1d457b; }
-    .no-donors { font-size: 15px; color: #aaa; padding: 0.5rem 0; }
+    .donor-name { font-size: 16px; font-weight: 500; color: #111; }
+    .donor-amount { font-size: 15px; font-weight: 700; color: #1d457b; }
+    .no-donors { font-size: 14px; color: #aaa; padding: 0.5rem 0; }
 
-    .footer {
-      display: flex; align-items: center; justify-content: space-between;
-      border-top: 1px solid #e8eef7; padding-top: 1.25rem;
-      font-size: 13px; color: #888;
+    .bottom-img {
+      width: 100%;
+      display: block;
+      max-height: 100px;
+      object-fit: cover;
+      object-position: center;
     }
+
+    .footer { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #e8eef7; padding: 1.1rem 3rem; font-size: 13px; color: #888; }
     .pulse { width: 9px; height: 9px; border-radius: 50%; background: #1d457b; display: inline-block; margin-right: 8px; animation: pulse 2s ease-in-out infinite; }
     @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(0.65)} }
-
     .error-msg { color: #A32D2D; font-size: 13px; padding: 0.75rem 1rem; background: #FCEBEB; border-radius: 8px; margin-bottom: 1rem; }
   </style>
 </head>
 <body>
   <div class="card">
-    <div class="header">
-      <div class="header-left">
-        <p class="org-label">Chorus America</p>
-        <h1 class="campaign-name" id="camp-name">Homecoming 2026</h1>
+
+    <img class="hero-img" src="Homecoming.jpg" alt="Homecoming 2026" />
+
+    <div class="card-body">
+      <div class="header">
+        <div>
+          <p class="org-label">Chorus America</p>
+          <h1 class="campaign-name" id="camp-name">Homecoming 2026</h1>
+        </div>
+        <div class="donate-link">
+          <p class="donate-link-label">Give now</p>
+          <a class="donate-link-url" href="https://bit.ly/hocogift" target="_blank">bit.ly/hocogift</a>
+        </div>
       </div>
-      <div class="donate-link">
-        <p class="donate-link-label">Give now</p>
-        <a class="donate-link-url" href="https://bit.ly/hocogift" target="_blank">bit.ly/hocogift</a>
+
+      <div class="stats-grid">
+        <div class="stat-card"><p class="stat-label">Raised</p><p class="stat-value highlight" id="raised">—</p></div>
+        <div class="stat-card"><p class="stat-label">Goal</p><p class="stat-value" id="goal">—</p></div>
+        <div class="stat-card"><p class="stat-label">Donations</p><p class="stat-value" id="count">—</p></div>
       </div>
+
+      <div class="bar-wrap"><div class="bar-fill" id="bar" style="width:0%"><span class="bar-pct" id="bar-pct"></span></div></div>
+      <div class="bar-labels"><span>$0</span><span id="goal-label">—</span></div>
+
+      <div class="donors-section">
+        <p class="donors-title">Our Donors</p>
+        <div class="donors-list" id="donors-list"><p class="no-donors">Loading donors...</p></div>
+      </div>
+
+      <div id="error-box" style="display:none"></div>
     </div>
 
-    <div class="stats-grid">
-      <div class="stat-card"><p class="stat-label">Raised</p><p class="stat-value highlight" id="raised">—</p></div>
-      <div class="stat-card"><p class="stat-label">Goal</p><p class="stat-value" id="goal">—</p></div>
-      <div class="stat-card"><p class="stat-label">Donations</p><p class="stat-value" id="count">—</p></div>
-    </div>
-
-    <div class="bar-wrap"><div class="bar-fill" id="bar" style="width:0%"><span class="bar-pct" id="bar-pct"></span></div></div>
-    <div class="bar-labels"><span>$0</span><span id="goal-label">—</span></div>
-
-    <div class="donors-section">
-      <p class="donors-title">Our Donors</p>
-      <div class="donors-list" id="donors-list"><p class="no-donors">Loading donors...</p></div>
-    </div>
-
-    <div id="error-box" style="display:none"></div>
+    <img class="bottom-img" src="CC_Neon_Hero.jpg" alt="Thank you, Conference donors!" />
 
     <div class="footer">
       <span><span class="pulse"></span><span id="status">Connecting...</span></span>
       <span style="color:#1d457b; font-weight:600;">chorusamerica.org</span>
     </div>
+
   </div>
 
   <script>
