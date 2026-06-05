@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chorus America — Campaign Goal</title>
+  <style>
+    body { margin: 0; padding: 40px; background: #fff; display: flex; flex-direction: column; align-items: center; font-family: sans-serif; }
+    #meter-wrap { display: flex; justify-content: center; }
+    #status { margin-top: 16px; font-size: 13px; color: #888; }
+  </style>
+</head>
+<body>
+  <div id="meter-wrap"></div>
+  <div id="status">Refreshing in <span id="countdown">15</span>s</div>
+
+  <script>
+    var REFRESH_SECONDS = 15;
+    var src = 'https://chorusamerica.app.neoncrm.com/campaigns/goal-meter/share/Q0FNUEFJR05TSEFSSU5HLUdPQUwtTUVURVIzNTk=';
+    var wrap = document.getElementById('meter-wrap');
+    var countdown = document.getElementById('countdown');
+
+    function injectMeter() {
+      wrap.innerHTML = '';
+      var s = document.createElement('script');
+      s.src = src + '?_cb=' + Date.now();
+      wrap.appendChild(s);
+    }
+
+    var secondsLeft = REFRESH_SECONDS;
+    setInterval(function () {
+      secondsLeft--;
+      countdown.textContent = secondsLeft;
+      if (secondsLeft <= 0) {
+        secondsLeft = REFRESH_SECONDS;
+        injectMeter();
+      }
+    }, 1000);
+
+    injectMeter();
+  </script>
+</body>
+</html>
