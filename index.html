@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chorus America — Homecoming 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />  
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -15,7 +15,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 3rem 2rem;
+      padding: 2rem;
     }
 
     .card {
@@ -27,71 +27,58 @@
       box-shadow: 0 24px 80px rgba(0,0,0,0.3);
     }
 
-    .hero-img {
-      width: 100%;
-      display: block;
-      max-height: 220px;
-      object-fit: cover;
-      object-position: center top;
-    }
+    .hero-img { width: 100%; display: block; max-height: 200px; object-fit: cover; object-position: center top; }
 
-    .card-body { padding: 2.5rem 3rem; }
+    .card-body { padding: 2rem 2.75rem; }
 
-    .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 2rem; }
+    .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.5rem; }
 
-    .org-label {
-      font-size: 12px; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; color: #1d457b; margin-bottom: 0.4rem;
-    }
+    .org-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #1d457b; margin-bottom: 0.35rem; }
 
-    .campaign-name {
-      font-family: 'Jost', sans-serif;
-      font-size: 40px; color: #111; line-height: 1.1;
-    }
+    .campaign-name { font-family: 'Jost', sans-serif; font-size: 38px; color: #111; line-height: 1.1; }
 
     .donate-link { text-align: right; flex-shrink: 0; margin-left: 2rem; margin-top: 0.25rem; }
     .donate-link-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #888; margin-bottom: 4px; }
-    .donate-link-url { font-size: 22px; font-weight: 700; color: #1d457b; text-decoration: none; }
+    .donate-link-url { font-size: 20px; font-weight: 700; color: #1d457b; text-decoration: none; }
     .donate-link-url:hover { text-decoration: underline; }
 
-    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 1.75rem; }
-    .stat-card { background: #f0f4fa; border-radius: 14px; padding: 1.1rem 1.4rem; }
-    .stat-label { font-size: 12px; font-weight: 600; color: #1d457b; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
-    .stat-value { font-size: 34px; font-weight: 700; color: #111; line-height: 1; }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.5rem; }
+    .stat-card { background: #f0f4fa; border-radius: 12px; padding: 1rem 1.25rem; }
+    .stat-label { font-size: 11px; font-weight: 600; color: #1d457b; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .stat-value { font-size: 32px; font-weight: 700; color: #111; line-height: 1; }
     .stat-value.highlight { color: #1d457b; }
 
-    .bar-wrap { background: #e8eef7; border-radius: 999px; height: 28px; overflow: hidden; margin-bottom: 0.5rem; }
-    .bar-fill { height: 100%; border-radius: 999px; background: #1d457b; transition: width 1s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 12px; min-width: 4px; }
-    .bar-pct { font-size: 13px; font-weight: 700; color: #fff; }
-    .bar-labels { display: flex; justify-content: space-between; font-size: 13px; color: #888; margin-bottom: 1.75rem; }
+    .bar-wrap { background: #e8eef7; border-radius: 999px; height: 24px; overflow: hidden; margin-bottom: 0.4rem; }
+    .bar-fill { height: 100%; border-radius: 999px; background: #1d457b; transition: width 1s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; min-width: 4px; }
+    .bar-pct { font-size: 12px; font-weight: 700; color: #fff; }
+    .bar-labels { display: flex; justify-content: space-between; font-size: 12px; color: #888; margin-bottom: 1.5rem; }
 
-    .donors-section { margin-bottom: 1.75rem; }
-    .donors-title { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #1d457b; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e8eef7; }
-    .donors-list { display: flex; flex-direction: column; gap: 8px; }
-    .donor-row { display: flex; align-items: center; justify-content: space-between; padding: 11px 16px; background: #f0f4fa; border-radius: 10px; animation: fadeIn 0.5s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+    .donors-section { margin-bottom: 1.25rem; }
+    .donors-title { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #1d457b; margin-bottom: 0.6rem; padding-bottom: 0.4rem; border-bottom: 2px solid #e8eef7; }
+    .donors-list { display: flex; flex-direction: column; gap: 7px; }
+
+    .donor-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 15px; background: #f0f4fa; border-radius: 10px;
+      animation: slideIn 0.4s ease;
+    }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
     .donor-name { font-size: 16px; font-weight: 500; color: #111; }
     .donor-amount { font-size: 15px; font-weight: 700; color: #1d457b; }
-    .no-donors { font-size: 14px; color: #aaa; padding: 0.5rem 0; }
+    .no-donors { font-size: 14px; color: #aaa; padding: 0.4rem 0; }
 
-    .bottom-img {
-      width: 100%;
-      display: block;
-      max-height: 100px;
-      object-fit: cover;
-      object-position: center;
-    }
+    .bottom-img { width: 100%; display: block; max-height: 90px; object-fit: cover; object-position: center; }
 
-    .footer { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #e8eef7; padding: 1.1rem 3rem; font-size: 13px; color: #888; }
-    .pulse { width: 9px; height: 9px; border-radius: 50%; background: #1d457b; display: inline-block; margin-right: 8px; animation: pulse 2s ease-in-out infinite; }
+    .footer { display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 2.75rem; font-size: 12px; color: #888; border-top: 1px solid #e8eef7; }
+    .pulse { width: 8px; height: 8px; border-radius: 50%; background: #1d457b; display: inline-block; margin-right: 7px; animation: pulse 2s ease-in-out infinite; }
     @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(0.65)} }
-    .error-msg { color: #A32D2D; font-size: 13px; padding: 0.75rem 1rem; background: #FCEBEB; border-radius: 8px; margin-bottom: 1rem; }
+    .error-msg { color: #A32D2D; font-size: 12px; padding: 0.6rem 0.9rem; background: #FCEBEB; border-radius: 8px; margin-bottom: 0.75rem; }
   </style>
 </head>
 <body>
   <div class="card">
 
-    <img class="hero-img" src="NeonHero.jpg" alt="Homecoming 2026" />
+    <img class="hero-img" src="Homecoming.jpg" alt="Homecoming 2026" />
 
     <div class="card-body">
       <div class="header">
@@ -115,12 +102,14 @@
       <div class="bar-labels"><span>$0</span><span id="goal-label">—</span></div>
 
       <div class="donors-section">
-        <p class="donors-title">Our Donors</p>
+        <p class="donors-title">Most Recent Donors</p>
         <div class="donors-list" id="donors-list"><p class="no-donors">Loading donors...</p></div>
       </div>
 
       <div id="error-box" style="display:none"></div>
     </div>
+
+    <img class="bottom-img" src="CC_Neon_Hero.jpg" alt="Thank you, Conference donors!" />
 
     <div class="footer">
       <span><span class="pulse"></span><span id="status">Connecting...</span></span>
@@ -135,6 +124,7 @@
     var CAMPAIGN_ID = 359;
     var CAMPAIGN_NAME = 'Homecoming 2026';
     var REFRESH_SECONDS = 15;
+    var MAX_DONORS = 5;
     var PROXY = 'https://corsproxy.io/?';
     var BASE = 'https://api.neoncrm.com/neonws/services/api/';
     var sessionId = null;
@@ -177,6 +167,9 @@
         if(row['Full Name (F)'] && row['Campaign Name'] === CAMPAIGN_NAME) donors.push(row);
       });
       if(donors.length === 0){ list.innerHTML = '<p class="no-donors">No donors yet — be the first!</p>'; return; }
+      // Reverse so most recent is first, then cap at MAX_DONORS
+      donors.reverse();
+      donors = donors.slice(0, MAX_DONORS);
       list.innerHTML = donors.map(function(d){
         var name = d['Full Name (F)'] || 'Anonymous';
         var amt = d['Donation Amount'] ? fmt(parseFloat(d['Donation Amount'])) : '';
