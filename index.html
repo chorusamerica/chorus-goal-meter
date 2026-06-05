@@ -46,12 +46,10 @@
     </div>
     <div class="bar-wrap"><div class="bar-fill" id="bar" style="width:0%"><span class="bar-pct" id="bar-pct"></span></div></div>
     <div class="bar-labels"><span>$0</span><span id="goal-label">—</span></div>
-
     <div class="donors-section">
       <p class="donors-title">Our Donors</p>
       <div class="donors-list" id="donors-list"><p class="no-donors">Loading donors...</p></div>
     </div>
-
     <div id="error-box" style="display:none"></div>
     <div class="footer">
       <span><span class="pulse"></span><span id="status">Connecting...</span></span>
@@ -95,7 +93,7 @@
     function updateDonors(data){
       var list = $('donors-list');
       var results = data.listDonations && data.listDonations.searchResults;
-      if(!results){ list.innerHTML = '<p class="no-donors">No donors yet.</p>'; return; }
+      if(!results){ list.innerHTML = '<p class="no-donors">No donors yet — be the first!</p>'; return; }
       var pairs = results.nameValuePairs;
       if(!Array.isArray(pairs)) pairs = [pairs];
       var donors = [];
@@ -104,7 +102,10 @@
         if(!Array.isArray(nvp)) nvp = [nvp];
         var row = {};
         nvp.forEach(function(p){ row[p.name] = p.value; });
-        if(row['Full Name (F)']) donors.push(row);
+        // Filter to only Homecoming 2026 donations
+        if(row['Full Name (F)'] && row['Campaign Name'] === CAMPAIGN_NAME){
+          donors.push(row);
+        }
       });
       if(donors.length === 0){ list.innerHTML = '<p class="no-donors">No donors yet — be the first!</p>'; return; }
       list.innerHTML = donors.map(function(d){
@@ -115,11 +116,13 @@
     }
 
     function fetchDonors(){
+      // Fetch recent donations (from campaign start date) and filter client-side
       var url = PROXY + encodeURIComponent(BASE + 'donation/listDonations?responseType=json&userSessionId=' + sessionId +
         '&outputfields.idnamepair.id=&outputfields.idnamepair.name=Full%20Name%20(F)' +
         '&outputfields.idnamepair.id=&outputfields.idnamepair.name=Donation%20Amount' +
-        '&searches.search.key=Campaign%20Name&searches.search.searchOperator=EQUAL&searches.search.value=' + encodeURIComponent(CAMPAIGN_NAME) +
-        '&page.pageSize=20&page.currentPage=1');
+        '&outputfields.idnamepair.id=&outputfields.idnamepair.name=Campaign%20Name' +
+        '&searches.search.key=Donation%20Date&searches.search.searchOperator=GREATER_AND_EQUAL&searches.search.value=2025-09-01' +
+        '&page.pageSize=100&page.currentPage=1');
       fetch(url)
         .then(function(r){ return r.json(); })
         .then(function(d){ updateDonors(d); })
