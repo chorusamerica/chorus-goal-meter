@@ -165,8 +165,10 @@
         if(row['Full Name (F)'] && row['Campaign Name'] === CAMPAIGN_NAME) donors.push(row);
       });
       if(donors.length === 0){ list.innerHTML = '<p class="no-donors">No donors yet — be the first!</p>'; return; }
-      // Reverse so most recent is first, then cap at MAX_DONORS
-      donors.reverse();
+      // Sort by donation date descending, then cap at MAX_DONORS
+      donors.sort(function(a, b) {
+        return new Date(b['Donation Date']) - new Date(a['Donation Date']);
+      });
       donors = donors.slice(0, MAX_DONORS);
       list.innerHTML = donors.map(function(d){
         var name = d['Full Name (F)'] || 'Anonymous';
@@ -180,6 +182,7 @@
         '&outputfields.idnamepair.id=&outputfields.idnamepair.name=Full%20Name%20(F)' +
         '&outputfields.idnamepair.id=&outputfields.idnamepair.name=Donation%20Amount' +
         '&outputfields.idnamepair.id=&outputfields.idnamepair.name=Campaign%20Name' +
+        '&outputfields.idnamepair.id=&outputfields.idnamepair.name=Donation%20Date' +                                  
         '&searches.search.key=Donation%20Date&searches.search.searchOperator=GREATER_AND_EQUAL&searches.search.value=2026-06-01' +
         '&page.pageSize=100&page.currentPage=1');
       fetch(url).then(function(r){ return r.json(); }).then(function(d){ updateDonors(d); }).catch(function(){});
