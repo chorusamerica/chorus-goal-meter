@@ -19,10 +19,18 @@
     .bar-fill { height: 100%; border-radius: 999px; background: #1D9E75; transition: width 1s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; min-width: 2px; }
     .bar-pct { font-size: 12px; font-weight: 600; color: #fff; }
     .bar-labels { display: flex; justify-content: space-between; font-size: 13px; color: #888; margin-bottom: 1.5rem; }
+    .donors-section { margin-bottom: 1.5rem; }
+    .donors-title { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-bottom: 0.75rem; }
+    .donors-list { display: flex; flex-direction: column; gap: 8px; }
+    .donor-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: #f5f5f3; border-radius: 8px; animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+    .donor-name { font-size: 15px; font-weight: 500; color: #111; }
+    .donor-amount { font-size: 14px; font-weight: 600; color: #0F6E56; }
+    .no-donors { font-size: 14px; color: #aaa; padding: 0.5rem 0; }
     .footer { display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: #888; border-top: 1px solid #eee; padding-top: 1rem; }
     .pulse { width: 8px; height: 8px; border-radius: 50%; background: #1D9E75; display: inline-block; margin-right: 6px; animation: pulse 2s ease-in-out infinite; }
     @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
-    .error-msg { color: #A32D2D; font-size: 14px; padding: 1rem; background: #FCEBEB; border-radius: 8px; margin-bottom: 1rem; }
+    .error-msg { color: #A32D2D; font-size: 13px; padding: 0.75rem 1rem; background: #FCEBEB; border-radius: 8px; margin-bottom: 1rem; }
     .donate-btn { background: #1D9E75; color: #fff; border: none; border-radius: 8px; padding: 10px 20px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; }
     .donate-btn:hover { background: #0F6E56; }
   </style>
@@ -38,6 +46,12 @@
     </div>
     <div class="bar-wrap"><div class="bar-fill" id="bar" style="width:0%"><span class="bar-pct" id="bar-pct"></span></div></div>
     <div class="bar-labels"><span>$0</span><span id="goal-label">—</span></div>
+
+    <div class="donors-section">
+      <p class="donors-title">Our Donors</p>
+      <div class="donors-list" id="donors-list"><p class="no-donors">Loading donors...</p></div>
+    </div>
+
     <div id="error-box" style="display:none"></div>
     <div class="footer">
       <span><span class="pulse"></span><span id="status">Connecting...</span></span>
@@ -49,6 +63,7 @@
     var ORG = 'chorusamerica';
     var API_KEY = '1f2ce8be38aa05ce83db78d374416892';
     var CAMPAIGN_ID = 359;
+    var CAMPAIGN_NAME = 'Homecoming 2026';
     var REFRESH_SECONDS = 15;
     var PROXY = 'https://corsproxy.io/?';
     var BASE = 'https://api.neoncrm.com/neonws/services/api/';
@@ -77,6 +92,40 @@
       $('error-box').style.display = 'none';
     }
 
+    function updateDonors(data){
+      var list = $('donors-list');
+      var results = data.listDonations && data.listDonations.searchResults;
+      if(!results){ list.innerHTML = '<p class="no-donors">No donors yet.</p>'; return; }
+      var pairs = results.nameValuePairs;
+      if(!Array.isArray(pairs)) pairs = [pairs];
+      var donors = [];
+      pairs.forEach(function(item){
+        var nvp = item.nameValuePair;
+        if(!Array.isArray(nvp)) nvp = [nvp];
+        var row = {};
+        nvp.forEach(function(p){ row[p.name] = p.value; });
+        if(row['Full Name (F)']) donors.push(row);
+      });
+      if(donors.length === 0){ list.innerHTML = '<p class="no-donors">No donors yet — be the first!</p>'; return; }
+      list.innerHTML = donors.map(function(d){
+        var name = d['Full Name (F)'] || 'Anonymous';
+        var amt = d['Donation Amount'] ? fmt(parseFloat(d['Donation Amount'])) : '';
+        return '<div class="donor-row"><span class="donor-name">' + name + '</span><span class="donor-amount">' + amt + '</span></div>';
+      }).join('');
+    }
+
+    function fetchDonors(){
+      var url = PROXY + encodeURIComponent(BASE + 'donation/listDonations?responseType=json&userSessionId=' + sessionId +
+        '&outputfields.idnamepair.id=&outputfields.idnamepair.name=Full%20Name%20(F)' +
+        '&outputfields.idnamepair.id=&outputfields.idnamepair.name=Donation%20Amount' +
+        '&searches.search.key=Campaign%20Name&searches.search.searchOperator=EQUAL&searches.search.value=' + encodeURIComponent(CAMPAIGN_NAME) +
+        '&page.pageSize=20&page.currentPage=1');
+      fetch(url)
+        .then(function(r){ return r.json(); })
+        .then(function(d){ updateDonors(d); })
+        .catch(function(e){ console.log('Donor fetch error:', e); });
+    }
+
     function fetchData(){
       if(!sessionId){ login(); return; }
       var url = PROXY + encodeURIComponent(BASE + 'donation/retrieveCampaignSummary?userSessionId=' + sessionId + '&campaignId=' + CAMPAIGN_ID + '&output=json');
@@ -86,6 +135,7 @@
           var result = d.retrieveCampaignSummary && d.retrieveCampaignSummary.operationResult;
           if(result === 'SUCCESS'){
             updateMeter(d);
+            fetchDonors();
             setStatus('Updated just now');
           } else {
             sessionId = null;
