@@ -123,7 +123,7 @@
     var CAMPAIGN_NAME = 'Homecoming 2026';
     var REFRESH_SECONDS = 15;
     var MAX_DONORS = 5;
-    var PROXY = 'https://corsproxy.io/?nocache=' + Date.now() + '&url=';
+    var PROXY = 'https://corsproxy.io/?';
     var BASE = 'https://api.neoncrm.com/neonws/services/api/';
     var sessionId = null;
     var secondsLeft = REFRESH_SECONDS;
@@ -176,7 +176,7 @@
     }
 
     function fetchDonors(){
-      var url = PROXY + encodeURIComponent(BASE + 'donation/listDonations?responseType=json&userSessionId=' + sessionId +
+      var url = PROXY + encodeURIComponent(BASE + 'donation/listDonations?responseType=json&_cb=' + Date.now() + '&userSessionId=' + sessionId +
         '&outputfields.idnamepair.id=&outputfields.idnamepair.name=Full%20Name%20(F)' +
         '&outputfields.idnamepair.id=&outputfields.idnamepair.name=Donation%20Amount' +
         '&outputfields.idnamepair.id=&outputfields.idnamepair.name=Campaign%20Name' +
@@ -187,7 +187,7 @@
 
     function fetchData(){
       if(!sessionId){ login(); return; }
-      var url = PROXY + encodeURIComponent(BASE + 'donation/retrieveCampaignSummary?userSessionId=' + sessionId + '&campaignId=' + CAMPAIGN_ID + '&output=json');
+      var url = PROXY + encodeURIComponent(BASE + 'donation/retrieveCampaignSummary?_cb=' + Date.now() + '&userSessionId=' + sessionId + '&campaignId=' + CAMPAIGN_ID + '&output=json');
       fetch(url)
         .then(function(r){ return r.json(); })
         .then(function(d){
